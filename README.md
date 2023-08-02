@@ -12,4 +12,4 @@ The languages that you'll see are:
 - Python
 - Matlab
 - AppInventor
-[![Top Langs](https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api/top-langs/?username=juanbermudezg)](https://github.com/juanbermudezg/aeronauticalEngineering)
+[![Top Langs](https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api/top-langs/?username=juanbermudezg/aeronauticalEngineering)](https://github.com/juanbermudezg/aeronauticalEngineering)
