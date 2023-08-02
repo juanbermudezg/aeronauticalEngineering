@@ -1,0 +1,314 @@
+//Progama realizado por Juan Andrés Bermúdez Gómez, estudiante de Ingeniería Aeornáutica de la
+//Escuela de Aviación del Ejército
+int led = 13;
+void setup(){
+  pinMode(led,OUTPUT);
+}
+
+void punto(){
+  digitalWrite(led, HIGH);
+  delay(150);
+  digitalWrite(led, LOW);
+  delay(100);
+}
+
+void linea(){
+  digitalWrite(led, HIGH);
+  delay(450);
+  digitalWrite(led, LOW);
+  delay(100);
+}
+
+void A(){
+  punto();
+  linea();
+  delay(100);
+}
+
+void B(){
+  linea();
+  for (int i=0; i<3;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void C(){
+  for (int i=0; i<2;i++){
+  linea();
+  punto();
+  }
+  delay(100);
+}
+
+void D(){
+  linea();
+  for (int i=0; i<2;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void E(){
+    punto();
+    delay(100);
+}
+
+void _F(){
+  for (int i=0; i<2;i++){
+    punto();
+  }
+  linea();
+  punto();
+  delay(100);
+}
+
+void G(){
+  for (int i=0; i<2;i++){
+  linea();
+  }
+  punto(); 
+  delay(100);
+}
+
+void H(){
+  for (int i=0; i<4;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void I(){
+  for (int i=0; i<2;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void J(){
+    punto();
+  for (int i=0; i<3;i++){
+    linea();
+  }
+  delay(100);
+}
+
+void K(){
+    linea();
+    punto();
+    linea();
+    delay(100);
+}
+
+void L(){
+    punto();
+    linea();
+  for (int i=0; i<2;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void M(){
+  for (int i=0; i<2;i++){
+    linea();
+  }
+  delay(100);
+}
+
+void N(){
+    linea();
+    punto();
+    delay(100);
+}
+
+void O(){
+  for (int i=0; i<3;i++){
+    linea();
+  }
+  delay(100);
+}
+
+void P(){
+    punto();
+  for (int i=0; i<2;i++){
+    linea();
+  }
+    punto();
+    delay(100);
+}
+
+void Q(){
+  for (int i=0; i<2;i++){
+     linea();
+  }
+    punto();
+    linea();
+    delay(100);
+}
+
+void R(){
+    punto();
+    linea();
+    punto();
+    delay(100);
+}
+
+void S(){
+  for (int i=0; i<3;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void T(){
+    linea();
+    delay(100);
+}
+
+void U(){
+  for (int i=0; i<2;i++){
+    punto();
+  }
+  linea();
+  delay(100);
+}
+
+void V(){
+  for (int i=0; i<3;i++){
+    punto();
+  }
+  linea();
+  delay(100);
+}
+
+void W(){
+  punto();
+  for (int i=0;i<2;i++){
+    linea();
+  }
+  delay(100);
+}
+
+void X(){
+  linea();
+  for (int i=0;i<2;i++){
+    punto();
+  }
+  linea();
+  delay(100);
+}
+
+void Y(){
+  linea();
+  punto();
+  for (int i=0; i<2;i++){
+    linea();
+  }
+  delay(100);
+}
+
+void Z(){
+  for (int i=0;i<2;i++){
+    linea();
+  }
+  for (int i=0;i<2;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void one(){
+  punto();
+  for (int i=0;i<4;i++){
+    linea();
+  }
+  delay(100);
+}
+
+void two(){
+  for (int i=0;i<2;i++){
+    punto();
+  }
+  for (int i=0;i<3;i++){
+    linea();
+  }
+  delay(100);
+}
+
+void three(){
+  for (int i=0;i<3;i++){
+    punto();
+  }
+  for (int i=0;i<2;i++){
+    linea();
+  }
+  delay(100);
+}
+
+void four(){
+  for (int i=0;i<4;i++){
+    punto();
+  }
+  linea();
+  delay(100);
+}
+
+void five(){
+  for (int i=0;i<5;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void six(){
+  linea();
+  for (int i=0;i<4;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void seven(){
+  for (int i=0;i<2;i++){
+    linea();
+  }
+  for (int i=0;i<3;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void eight(){
+  for (int i=0;i<3;i++){
+    linea();
+  }
+  for (int i=0;i<2;i++){
+    punto();
+  }
+  delay(100);
+}
+
+void nine(){
+  for (int i=0;i<4;i++){
+    linea();
+  }
+  punto();
+  delay(100);
+}
+
+void zero(){
+  for (int i=0;i<5;i++){
+    linea();
+  }
+  delay(100);
+}
+
+//inicialización
+
+void loop(){
+  S();
+  O();
+  S();
+  delay(2000);
+}
