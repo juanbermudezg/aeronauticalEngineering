@@ -1,0 +1,96 @@
+#:kivy 1.9.2
+<ElementCard@MDCard>:
+    radius: '10dp'
+    spacing: '10dp'
+    padding: '10dp'
+    image: ' '
+    text: ' '
+    sub_text: ' '
+    orientation: 'vertical'
+    ripple_behavior: True
+    
+    image: 
+        source: root.image
+        halign: 'center'
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            text: root.text
+            halign: 'center'
+        MDLabel:
+            text: root.sub_text
+            halign: 'center'
+
+<CustomizeScreen@MDBoxLayout>:
+    orientation: 'vertical'
+    text: ''
+    padding: 100
+    MDLabel:
+        text:root.text
+        pos_hit: {'center_x':0.5}
+    MDFillRoundFlatButton:
+        text:'Continuar'
+        pos_hit: {'center_x':0.5}
+        on_release:
+            app.root.current='screen2'
+            
+    MDFillRoundFlatButton:
+        text:'Volver atrás'
+        pos_hit: {'center_x':0.5}
+        on_release:
+            
+            app.root.current='screen_principal'
+            
+
+<Ui>:
+    MDScreen:
+        name: 'screen_principal'
+        md_bg_color: 170/255,170/255,170/255,1
+        MDBoxLayout: 
+            orientation: 'vertical'
+            MDBoxLayout:
+                size_hit: 1, 0.2
+                orientation: 'horizontal'
+                padding: '10dp'
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    line_color: 14/255, 26/255, 64/255, 1 
+                    MDLabel:
+                        text: 'Aplicación calculadora de atmósferas'
+                        halign: 'center'
+                        pos_hit: {'center_y':0.5}
+                    MDSwitch:
+                        pos_hit: {'center_y':0.5}
+                        on_active:
+                            app.change_style(*args)
+            MDBoxLayout:
+                size_hit: 1,.2
+                orientation: 'vertical'
+                padding: '10dp'
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    line_color: 14/255, 26/255, 64/255, 1 
+                   
+                    
+                    MDLabel:
+                            text: 'Creado por Juan Andrés calculadora de atmósferas'
+                            halign: 'center'
+                            pos_hit: {'center_y':0.5}
+
+            MDGridLayout:
+                cols: 3
+                size_hit: 1,.8
+                padding: ['10dp','10dp','10dp','10dp']
+                
+                ElementCard:
+                    text:'Ingresa a la app!'
+                    sub_text: 'Aerodinámica'
+                    image: 'img1.png'
+                    on_release:
+                        root.current='screen1'
+    MDScreen:
+        name: 'screen1'
+        CustomizeScreen:
+            text: 'Pantalla uno'

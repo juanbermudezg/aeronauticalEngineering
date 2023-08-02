@@ -1,0 +1,51 @@
+<Ui>:
+    MDScreen:
+        name: 'screen_principal'
+        md_bg_color: 170/255,170/255,170/255,1
+        MDBoxLayout: 
+            orientation: 'vertical'
+            MDBoxLayout:
+                size_hit: 1, 0.2
+                orientation: 'horizontal'
+                padding: '10dp'
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    line_color: 14/255, 26/255, 64/255, 1 
+                    MDLabel:
+                        text: 'Aplicación calculadora de atmósferas'
+                        halign: 'center'
+                        pos_hit: {'center_x':0.5}
+                    MDSwitch:
+                        pos_hit: {'center_x':0.5}
+                        on_active:
+                            app.change_style(*args)
+                    
+            MDBoxLayout:
+                size_hit: 1,.8
+                orientation: 'vertical'
+                padding: '10dp'
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    line_color: 14/255, 26/255, 64/255, 1 
+                    md_bg_color: 114/255, 98/255, 85/255, 1
+                    MDLabel:
+                        text: 'Creado por Juan Andrés Bermúdez Gómez'
+                        halign: 'center'
+                        pos_hit: {'center_x':0.5}
+            MDGridLayout:
+                cols: 3
+                size_hit: 1,.8
+                padding: ['10dp','10dp','10dp','10dp']
+                MDCard:
+                    cols: 3
+                    size_hint: None, None
+                    size: "280dp", "180dp"
+                    padding: ['10dp','10dp','10dp','10dp']
+                    md_bg_color: 174/255, 0/255, 1/255, 1
+                    AsyncImage:
+                        source: "img1.png"
+                        size_hint: None, None
+                        size: "250dp", "175dp"
+        
