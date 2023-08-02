@@ -6,3 +6,5 @@
 *.xctl linguist-language=LabVIEW
 *.xnode linguist-language=LabVIEW
 *.ino linguist-language=Arduino
+*.abb linguist-language=AppInventor
+*.apk linguist-language=AppInventor
