@@ -1,0 +1,6 @@
+function[]=mifuncion()
+
+x=1:0.1:3;
+f=(1./x);
+
+plot(f)
