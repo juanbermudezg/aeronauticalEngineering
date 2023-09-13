@@ -7,7 +7,7 @@ def motores(AG, MG, AH, stepAreas, gamma):
     MG=0.4
     AH=400'''
     AM=(AG)/((((2/(gamma+1))*(1+((gamma-1)/2)*(MG)**2))**((gamma+1)/(2*(gamma-1))))/(MG))
-    M=1
+
     AM=round(AM, 2)
     areas=[]
     while AG>=AM:
