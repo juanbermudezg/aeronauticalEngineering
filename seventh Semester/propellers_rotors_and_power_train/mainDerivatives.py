@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import easygui
+import matplotlib.image as mpimg
+from math import *
 # Code created by @juanbermudezg, a student of Bachelor of Science in Aeronautical Engineering
 # at Escuela de Aviación del Ejército.
 
@@ -35,14 +37,17 @@ def main():
             tangent = tangent_line(f, x, step)
             tangent_values = [tangent(x_) for x_ in x_values]
             print("The value of the derivative at ",x, " is ","{:.12f}".format(valueDerivative))
-            plt.plot(x_values, y_values, label="Function f(x)")
+            img = mpimg.imread('logo.PNG')
+            img = np.flipud(img)
+            plt.plot(x_values, y_values, label="Function f(x)"+functionText)
+            plt.imshow(img, extent=[x_min, x_max, y_values[-1], y_values[0]], aspect='auto', alpha=0.3)  
             plt.plot(x_values, tangent_values, label="Tangent line at x=" + str(x), linestyle='--', color='green')
             plt.title("Graph of the function and its derivative")
-            plt.text((x_max*.75), y_values[0], 'by @juanbermudezg', fontsize = 10)
             plt.scatter(x, round(y_values[100]), color='red', label='Point (' + str(x) + ', ' + str(round(y_values[100])) + ')')
             plt.xlabel("x")
-            plt.ylabel("y")
+            plt.ylabel("f(x)")
             plt.legend()
+            plt.gca().invert_yaxis()
             plt.grid(True)
             plt.show()
             opt=int(input('Would you like to continue?\nYes = 1\nNo = 0\n'))
