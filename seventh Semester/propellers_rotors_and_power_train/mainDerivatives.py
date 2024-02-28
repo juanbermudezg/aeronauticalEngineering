@@ -4,9 +4,18 @@ import os
 import easygui
 import matplotlib.image as mpimg
 from math import *
+import re
 # Code created by @juanbermudezg, a student of Bachelor of Science in Aeronautical Engineering
 # at Escuela de Aviación del Ejército.
+def convert_to_radians(angle_in_degrees):
+    return radians(angle_in_degrees)
 
+def prepare_expression(expression):
+    trig_functions = ['sin', 'cos', 'tan', 'asin', 'acos', 'atan']
+    for func_name in trig_functions:
+        pattern = rf"\b{func_name}\(([^)]+)\)"
+        expression = re.sub(pattern, rf"{func_name}(convert_to_radians(\1))", expression)
+    return expression
 def centralDiffApprox(f,x,h):
     return (f(x+h)-f(x-h))/(2*h)
 def richardsonExtrapolation(f,x,h):
@@ -25,8 +34,9 @@ def main():
             print("Welcome to the application made by @juanbermudezg in order to know the derivative of a function in a certain value of x.")
             print("Here are some examples of functions to write:\n1- x+5\n2- x*cos(x-1)-sin(x)\n3- x**3+4*x**2-10")
             functionText = input('Type your function f(x): ')
+            preparedTextFunction = prepare_expression(functionText)
             def f(x):
-                return eval(functionText)
+                return eval(preparedTextFunction)
             step = float(input("Enter the step size (sampling step): "))
             x = float(input("Enter the value of x: "))
             x_min=x-step*100
@@ -37,7 +47,7 @@ def main():
             tangent = tangent_line(f, x, step)
             tangent_values = [tangent(x_) for x_ in x_values]
             print("The value of the derivative at ",x, " is ","{:.12f}".format(valueDerivative))
-            img = mpimg.imread('logo.PNG')
+            img = mpimg.imread('src/logo.PNG')
             img = np.flipud(img)
             plt.plot(x_values, y_values, label="Function f(x)"+functionText)
             plt.imshow(img, extent=[x_min, x_max, y_values[-1], y_values[0]], aspect='auto', alpha=0.3)  
