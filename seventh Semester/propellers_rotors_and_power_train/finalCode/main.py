@@ -55,16 +55,14 @@ def calcularCt (revolutions:float)->float:
         root_term = math.sqrt(discriminant)
         alpha = 1 / 2 * (-term1 + root_term)
         inducedAlpha.append(alpha)
-    a = x[0] 
-    b = x[::-1] 
     def f(x_int, solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int):
         return (J*np.exp(2)+np.pi*np.exp(2)*x_int)*solidity_int*(Cl_int*np.cos(phi_int+inducedAlpha_int)-Cd_int*np.sin(phi_int+inducedAlpha_int))
     Ct:list = []
     for solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int in zip(solidity, Cl, phi, inducedAlpha, Cd):
         integral = np.trapz([f(x_int, solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int) for x_int in x], x)
         Ct.append(integral)
-    x_int = np.arange(len(Ct))
-    return np.trapz(Ct, x_int)
+    x_int = np.mean(Ct)
+    return x_int
 def calcularCp (revolutions:float)->float:
     archivo_excel:str = 'finalCode/bd.xlsx'
     df:pd.core.frame.DataFrame = pd.read_excel(archivo_excel)
@@ -114,14 +112,13 @@ def calcularCp (revolutions:float)->float:
     for solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int in zip(solidity, Cl, phi, inducedAlpha, Cd):
         integral = np.trapz([f(x_int, solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int) for x_int in x], x)
         Cp.append(integral)
-    x_int = np.arange(len(Cp))   
-    return np.trapz(Cp, x_int)
-revolutions_list:list = [100, 150, 200, 250, 333.33]
+    x_int = np.mean(Cp)  
+    return x_int
+revolutions_list:list = np.linspace(100, 333.33, 50)
 J_list:list = [calcularJ(revolutions_list_temp, V, D) for revolutions_list_temp in revolutions_list]
 print(J_list)
 Ct_list:list = [calcularCt(revolutions_list_temp) for revolutions_list_temp in revolutions_list]
-Cp_list:list = [calcularCt(revolutions_list_temp) for revolutions_list_temp in revolutions_list]
-eff_list:list = [(Ct_list_temp*J_list_temp)/Cp_list_temp for Ct_list_temp, J_list_temp, Cp_list_temp in zip(Ct_list, J_list, Cp_list)]
+Cp_list:list = [calcularCp(revolutions_list_temp) for revolutions_list_temp in revolutions_list]
 
 plt.plot(J_list, Ct_list)
 plt.title('Ct vs. J')
@@ -133,10 +130,4 @@ plt.plot(J_list, Cp_list)
 plt.title('Cp vs. J')
 plt.xlabel('J')
 plt.ylabel('Cp')
-plt.show()
-
-plt.plot(J_list, eff_list)
-plt.title('Eff vs. J')
-plt.xlabel('J')
-plt.ylabel('Eff')
 plt.show()
