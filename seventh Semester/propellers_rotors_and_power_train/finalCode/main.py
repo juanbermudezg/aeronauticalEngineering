@@ -2,24 +2,26 @@ import pandas as pd
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-import random
 
 
 D:float = 0.124 #diameter in m
 density:float = 1.23 #density in kg/m^3
 V:float = 10 #velocity in m/s
-
+def leerExcel(path:str)->pd.core.frame.DataFrame:
+    try:
+        df:pd.core.frame.DataFrame = pd.read_excel(path)
+        return df
+    except:
+        raise Exception
 def calcularJ (revolutions:float, V:float, D:float)->float:
     J:float = V/(revolutions*D)
     return J
 def calcularCt (revolutions:float)->float:
-    archivo_excel:str = 'finalCode/bd.xlsx'
-    df:pd.core.frame.DataFrame = pd.read_excel(archivo_excel)
+    df = leerExcel('finalCode/bd.xlsx')
     r_bd:str = 'radio desde el centro (cm)'
     Cl_bd:str = 'Cl'
     Cd_bd:str = 'Cd'
     a_bd:str = 'a'
-    #revolutions:float = 3000  # revolutions in rev/s
     Cl:list = [] #lift coefficient for a blade
     Cl = df[Cl_bd].tolist()
     Cd:list = [] #drag coefficient for a blade
@@ -43,7 +45,6 @@ def calcularCt (revolutions:float)->float:
     Vt:float = angularVelocity*R #velocity at tip in m/s
     Vr = [Vt*math.sqrt(x_temp**2+lambdaV**2) for x_temp in x]
     phi:float = [math.degrees(math.atan(lambdaV/(math.pi*x_temp))) for x_temp in x] #phi Φ
-
     inducedAlpha = []
     for x_temp, solidity_temp, a_temp, Vr_temp, B_temp, phi_temp in zip(x, solidity, a, Vr, B, phi):
         term1 = (lambdaV / x_temp) + ((solidity_temp * a_temp * Vr_temp) / (8 * x_temp**2 * Vt))
@@ -62,8 +63,8 @@ def calcularCt (revolutions:float)->float:
     for solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int in zip(solidity, Cl, phi, inducedAlpha, Cd):
         integral = np.trapz([f(x_int, solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int) for x_int in x], x)
         Ct.append(integral)
-
-    return np.trapz(Ct, x)
+    x_int = np.arange(len(Ct))
+    return np.trapz(Ct, x_int)
 def calcularCp (revolutions:float)->float:
     archivo_excel:str = 'finalCode/bd.xlsx'
     df:pd.core.frame.DataFrame = pd.read_excel(archivo_excel)
@@ -95,7 +96,6 @@ def calcularCp (revolutions:float)->float:
     Vt:float = angularVelocity*R #velocity at tip in m/s
     Vr = [Vt*math.sqrt(x_temp**2+lambdaV**2) for x_temp in x]
     phi:float = [math.degrees(math.atan(lambdaV/(math.pi*x_temp))) for x_temp in x] #phi Φ
-
     inducedAlpha = []
     for x_temp, solidity_temp, a_temp, Vr_temp, B_temp, phi_temp in zip(x, solidity, a, Vr, B, phi):
         term1 = (lambdaV / x_temp) + ((solidity_temp * a_temp * Vr_temp) / (8 * x_temp**2 * Vt))
@@ -110,16 +110,17 @@ def calcularCp (revolutions:float)->float:
     b = x[::-1] 
     def f(x_int, solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int):
         return (J*np.exp(2)+np.pi*np.exp(2)*x_int)*solidity_int*(Cl_int*np.sin(phi_int+inducedAlpha_int)+Cd_int*np.cos(phi_int+inducedAlpha_int))
-    Ct:list = []
+    Cp:list = []
     for solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int in zip(solidity, Cl, phi, inducedAlpha, Cd):
         integral = np.trapz([f(x_int, solidity_int, Cl_int, phi_int, inducedAlpha_int, Cd_int) for x_int in x], x)
-        Ct.append(integral)
-
-    return np.trapz(Ct, x)
-revolutions_list:list = list(range(3000, 24001, 500))
+        Cp.append(integral)
+    x_int = np.arange(len(Cp))   
+    return np.trapz(Cp, x_int)
+revolutions_list:list = [100, 150, 200, 250, 333.33]
+J_list:list = [calcularJ(revolutions_list_temp, V, D) for revolutions_list_temp in revolutions_list]
+print(J_list)
 Ct_list:list = [calcularCt(revolutions_list_temp) for revolutions_list_temp in revolutions_list]
 Cp_list:list = [calcularCt(revolutions_list_temp) for revolutions_list_temp in revolutions_list]
-J_list:list = [calcularJ(revolutions_list_temp, V, D) for revolutions_list_temp in revolutions_list]
 eff_list:list = [(Ct_list_temp*J_list_temp)/Cp_list_temp for Ct_list_temp, J_list_temp, Cp_list_temp in zip(Ct_list, J_list, Cp_list)]
 
 plt.plot(J_list, Ct_list)
@@ -132,10 +133,4 @@ plt.plot(J_list, Cp_list)
 plt.title('Cp vs. J')
 plt.xlabel('J')
 plt.ylabel('Cp')
-plt.show()
-
-plt.plot(J_list, eff_list)
-plt.title('Eff vs. J')
-plt.xlabel('J')
-plt.ylabel('Eff')
 plt.show()
